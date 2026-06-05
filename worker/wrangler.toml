@@ -9,20 +9,21 @@ compatibility_date = "2024-09-01"
 #   • 9 AM UK (BST, UTC+1)          → "0 8 * * *"
 # The default below is 13:00 UTC.
 [triggers]
-crons = ["0 13 * * *"]
+# 9 AM US Central (Austin) = 14:00 UTC
+crons = ["0 14 * * *"]
 
 # Bind the KV namespace that stores push subscriptions.
 # Create it with:  wrangler kv namespace create SUBSCRIPTIONS
 # then paste the returned id below.
 [[kv_namespaces]]
 binding = "SUBSCRIPTIONS"
-id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+id = "c84f98d70f0142579a283c5bc800ee61"
 
 # Public, non-secret vars. The two VAPID/secret values are set with
 # `wrangler secret put` (see worker/README.md), NOT here.
 [vars]
-VAPID_SUBJECT = "mailto:you@example.com"
-ALLOWED_ORIGIN = "https://YOUR_GITHUB_USERNAME.github.io"
+VAPID_SUBJECT = "mailto:almartishenko@gmail.com"
+ALLOWED_ORIGIN = "https://almar-t.github.io"
 
 [observability]
 enabled = true
