@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Header } from '../components/layout/Header';
 import { Button } from '../components/ui/Button';
 import { useMetrics } from '../hooks/useMetrics';
 import { usePush } from '../hooks/usePush';
 import { backupService } from '../services/backupService';
 import { downloadBlob, readFileAsText } from '../lib/download';
+import { isStoragePersisted } from '../lib/storage';
 import { todayISO } from '../lib/date';
 import styles from './SettingsPage.module.css';
 
@@ -13,6 +14,11 @@ export function SettingsPage() {
   const push = usePush();
   const fileInput = useRef<HTMLInputElement>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [persisted, setPersisted] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    void isStoragePersisted().then(setPersisted);
+  }, []);
 
   async function exportJson() {
     const blob = await backupService.exportToBlob();
@@ -85,8 +91,16 @@ export function SettingsPage() {
       {/* Data */}
       <SettingsGroup
         title="Your data"
-        footer="Everything is stored privately on this device. Back up regularly and to move to a new phone."
+        footer="Everything is stored privately on this device. Back up regularly, and to move to a new phone or view on a computer."
       >
+        {persisted !== null && (
+          <div className={`${styles.statusRow} ${persisted ? styles.statusOk : styles.statusWarn}`}>
+            <span aria-hidden>{persisted ? '🔒' : '⚠️'}</span>
+            {persisted
+              ? 'Saved on this device · protected from auto-deletion'
+              : 'Saved on this device · add to Home Screen to fully protect it'}
+          </div>
+        )}
         <div className={styles.stack}>
           <Button variant="secondary" fullWidth onClick={exportJson}>
             Export backup (JSON)
