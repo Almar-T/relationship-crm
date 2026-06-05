@@ -124,6 +124,20 @@ export function SettingsPage() {
           />
         </div>
         {message && <p className={styles.note}>{message}</p>}
+
+        <details className={styles.help}>
+          <summary>Move to a new phone or view on a computer</summary>
+          <ol className={styles.helpList}>
+            <li>Tap <strong>Export backup (JSON)</strong> above and save the file (to Files, iCloud Drive, or email it to yourself).</li>
+            <li>On the other device, open this same app in the browser.</li>
+            <li>Tap <strong>Restore from backup</strong> and pick that file — all your contacts appear.</li>
+          </ol>
+          <p className={styles.helpNote}>
+            This copies a <strong>snapshot</strong> — devices don't sync automatically. Whenever you want
+            the latest data on another device, export again and restore. Your data always stays on your
+            devices; nothing is uploaded unless you move the file yourself.
+          </p>
+        </details>
       </SettingsGroup>
 
       <p className={styles.about}>

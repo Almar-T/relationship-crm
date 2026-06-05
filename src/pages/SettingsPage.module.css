@@ -120,6 +120,52 @@
   color: var(--orange);
 }
 
+.help {
+  margin-top: var(--space-4);
+  border-top: 0.5px solid var(--separator);
+  padding-top: var(--space-3);
+}
+
+.help summary {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+  list-style: none;
+  padding: var(--space-1) 0;
+}
+
+.help summary::-webkit-details-marker {
+  display: none;
+}
+
+.help summary::before {
+  content: '＋ ';
+  font-weight: 700;
+}
+
+.help[open] summary::before {
+  content: '－ ';
+}
+
+.helpList {
+  list-style: decimal;
+  padding-left: var(--space-5);
+  margin: var(--space-3) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.helpNote {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
 .about {
   text-align: center;
   color: var(--text-tertiary);
