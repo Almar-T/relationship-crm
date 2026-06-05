@@ -1,0 +1,28 @@
+name = "reconnect-push"
+main = "src/index.ts"
+compatibility_date = "2024-09-01"
+
+# Daily Cron Trigger. Cloudflare cron runs in UTC, so pick the UTC hour that
+# corresponds to 9 AM in your timezone. Examples:
+#   • 9 AM US Eastern (EDT, UTC-4)  → "0 13 * * *"
+#   • 9 AM US Pacific (PDT, UTC-7)  → "0 16 * * *"
+#   • 9 AM UK (BST, UTC+1)          → "0 8 * * *"
+# The default below is 13:00 UTC.
+[triggers]
+crons = ["0 13 * * *"]
+
+# Bind the KV namespace that stores push subscriptions.
+# Create it with:  wrangler kv namespace create SUBSCRIPTIONS
+# then paste the returned id below.
+[[kv_namespaces]]
+binding = "SUBSCRIPTIONS"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+# Public, non-secret vars. The two VAPID/secret values are set with
+# `wrangler secret put` (see worker/README.md), NOT here.
+[vars]
+VAPID_SUBJECT = "mailto:you@example.com"
+ALLOWED_ORIGIN = "https://YOUR_GITHUB_USERNAME.github.io"
+
+[observability]
+enabled = true

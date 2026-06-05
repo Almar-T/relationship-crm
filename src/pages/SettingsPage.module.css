@@ -1,0 +1,108 @@
+.group {
+  margin: var(--space-2) var(--space-4) var(--space-6);
+}
+
+.groupTitle {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  padding: 0 var(--space-1) var(--space-2);
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: var(--space-4);
+}
+
+.footer {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  padding: var(--space-2) var(--space-1) 0;
+  line-height: 1.5;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: var(--space-2) 0;
+}
+
+.metricValue {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.metricLabel {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.red {
+  color: var(--red);
+}
+.orange {
+  color: var(--orange);
+}
+.green {
+  color: var(--green);
+}
+.accent {
+  color: var(--accent);
+}
+
+.note {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.note code {
+  font-size: 12px;
+  background: var(--fill);
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+
+.error {
+  color: var(--red);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-top: var(--space-3);
+}
+
+.row {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.row > * {
+  flex: 1;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.about {
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  padding: var(--space-6) var(--space-4) var(--space-10);
+}

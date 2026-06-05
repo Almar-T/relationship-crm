@@ -1,0 +1,21 @@
+.card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: var(--space-4);
+}
+
+.inset {
+  padding: var(--space-5);
+}
+
+.interactive {
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.interactive:active {
+  transform: scale(0.985);
+  background: var(--card-2);
+}

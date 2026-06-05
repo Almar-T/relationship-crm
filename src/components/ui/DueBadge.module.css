@@ -1,0 +1,35 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 22px;
+  padding: 0 var(--space-3) 0 var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.overdue {
+  background: rgba(255, 59, 48, 0.14);
+  color: var(--red);
+}
+.today {
+  background: rgba(255, 149, 0, 0.16);
+  color: var(--orange);
+}
+.soon {
+  background: rgba(10, 132, 255, 0.14);
+  color: var(--accent);
+}
+.upcoming {
+  background: var(--fill);
+  color: var(--text-secondary);
+}

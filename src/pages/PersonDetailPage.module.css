@@ -1,0 +1,94 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-4) var(--space-5);
+}
+
+.name {
+  font-size: var(--text-2xl);
+  margin-top: var(--space-2);
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: var(--text-md);
+}
+
+.badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.actionBar {
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.group {
+  margin: 0 var(--space-4) var(--space-4);
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-bottom: 0.5px solid var(--separator);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.rowLabel {
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+  flex-shrink: 0;
+}
+
+.rowValue {
+  font-weight: 600;
+  text-align: right;
+}
+
+.notesWrap {
+  margin: 0 var(--space-4) var(--space-4);
+}
+
+.notesTitle {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: 0 var(--space-1) var(--space-2);
+}
+
+.notes {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: var(--space-4);
+  white-space: pre-wrap;
+  line-height: 1.55;
+}
+
+.danger {
+  padding: var(--space-4) var(--space-4) var(--space-10);
+}

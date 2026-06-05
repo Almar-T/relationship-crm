@@ -1,0 +1,73 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding-top: var(--safe-top);
+  background: var(--bg);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 0.5px solid transparent;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 var(--space-4);
+}
+
+.side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.trailing {
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.compactTitle {
+  font-size: var(--text-md);
+  font-weight: 700;
+  text-align: center;
+  flex: 0 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-size: var(--text-md);
+  font-weight: 500;
+  padding: var(--space-2) var(--space-2) var(--space-2) 0;
+}
+
+.back span {
+  font-size: 26px;
+  line-height: 0.8;
+}
+
+.largeTitle {
+  padding: var(--space-1) var(--space-4) var(--space-4);
+}
+
+.largeTitle h1 {
+  font-size: var(--text-3xl);
+  letter-spacing: -0.03em;
+}
+
+.subtitle {
+  margin-top: var(--space-1);
+  color: var(--text-secondary);
+  font-size: var(--text-md);
+}

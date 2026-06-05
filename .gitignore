@@ -1,0 +1,22 @@
+# dependencies
+node_modules
+worker/node_modules
+
+# build output
+dist
+dev-dist
+worker/dist
+.wrangler
+
+# env / secrets
+.env
+.env.local
+.env.*.local
+vapid-keys.json
+
+# editor / os
+.DS_Store
+*.log
+.vscode/*
+!.vscode/extensions.json
+.idea

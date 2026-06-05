@@ -1,0 +1,27 @@
+.heroWrap {
+  padding: 0 var(--space-4);
+}
+
+.hero {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-5);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, var(--accent), #5e5ce6);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(10, 132, 255, 0.35);
+}
+
+.heroCount {
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.heroText {
+  font-size: var(--text-md);
+  font-weight: 600;
+  opacity: 0.95;
+}

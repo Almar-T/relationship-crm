@@ -1,0 +1,77 @@
+/* Design tokens. Apple-inspired: restrained palette, generous spacing,
+   system typography. Light + dark via prefers-color-scheme. */
+:root {
+  /* Spacing scale (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-full: 999px;
+
+  /* Typography */
+  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-md: 17px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+  --text-2xl: 30px;
+  --text-3xl: 36px;
+
+  /* Brand + semantic colors */
+  --accent: #0a84ff;
+  --accent-press: #0060df;
+  --red: #ff3b30;
+  --orange: #ff9500;
+  --green: #34c759;
+  --yellow: #ffcc00;
+
+  /* Light theme surfaces */
+  --bg: #f2f2f7;
+  --bg-elevated: #ffffff;
+  --card: #ffffff;
+  --card-2: #f7f7fa;
+  --separator: rgba(60, 60, 67, 0.12);
+  --text: #1c1c1e;
+  --text-secondary: #6b6b70;
+  --text-tertiary: #9a9aa0;
+  --fill: rgba(118, 118, 128, 0.12);
+  --fill-strong: rgba(118, 118, 128, 0.2);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.05);
+
+  /* Safe areas for iPhone notch / home indicator */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --tabbar-height: 56px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent: #0a84ff;
+    --accent-press: #409cff;
+    --bg: #000000;
+    --bg-elevated: #1c1c1e;
+    --card: #1c1c1e;
+    --card-2: #2c2c2e;
+    --separator: rgba(84, 84, 88, 0.4);
+    --text: #f5f5f7;
+    --text-secondary: #a1a1a6;
+    --text-tertiary: #6b6b70;
+    --fill: rgba(118, 118, 128, 0.24);
+    --fill-strong: rgba(118, 118, 128, 0.36);
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.5);
+  }
+}
