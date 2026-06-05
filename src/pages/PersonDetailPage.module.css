@@ -30,6 +30,32 @@
   padding: 0 var(--space-4) var(--space-4);
 }
 
+.contactActions {
+  display: flex;
+  gap: var(--space-3);
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.contactBtn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: var(--text-base);
+  text-decoration: none;
+}
+
+.contactBtn:active {
+  background: var(--card-2);
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;

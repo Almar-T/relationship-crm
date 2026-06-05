@@ -11,6 +11,7 @@ import { EmptyState } from '../components/ui/EmptyState';
 import { usePerson } from '../hooks/usePeople';
 import { personService } from '../services/personService';
 import { getDueInfo, dueLabel } from '../services/contactScheduler';
+import { smsHref, mailtoHref } from '../lib/contact';
 import { formatHumanDate, relativeDayLabel } from '../lib/date';
 import { RELATIONSHIP_STRENGTH_LABELS } from '../types/person';
 import styles from './PersonDetailPage.module.css';
@@ -92,6 +93,21 @@ export function PersonDetailPage() {
         </Button>
       </div>
 
+      {(person.phone || person.email) && (
+        <div className={styles.contactActions}>
+          {person.phone && (
+            <a className={styles.contactBtn} href={smsHref(person.phone)}>
+              <span aria-hidden>💬</span> Message
+            </a>
+          )}
+          {person.email && (
+            <a className={styles.contactBtn} href={mailtoHref(person.email)}>
+              <span aria-hidden>✉️</span> Email
+            </a>
+          )}
+        </div>
+      )}
+
       {person.tags.length > 0 && (
         <div className={styles.tags}>
           {person.tags.map((tag) => (
@@ -103,6 +119,8 @@ export function PersonDetailPage() {
       )}
 
       <div className={styles.group}>
+        {person.phone && <DetailRow label="Phone" value={person.phone} />}
+        {person.email && <DetailRow label="Email" value={person.email} />}
         {person.whereMet && <DetailRow label="Where met" value={person.whereMet} />}
         <DetailRow
           label="Cadence"

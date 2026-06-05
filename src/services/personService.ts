@@ -105,6 +105,8 @@ function normalizeInput(input: PersonInput) {
     name: input.name.trim(),
     company: clean(input.company),
     role: clean(input.role),
+    phone: clean(input.phone),
+    email: clean(input.email),
     whereMet: clean(input.whereMet),
     notes: input.notes?.trim() || undefined,
     tags: normalizeTags(input.tags),

@@ -1,10 +1,12 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Field, TextInput, TextArea } from '../ui/Field';
 import { Segmented } from '../ui/Segmented';
 import { TagInput } from '../ui/TagInput';
 import { Button } from '../ui/Button';
 import { FREQUENCY_OPTIONS } from '../../services/contactScheduler';
 import { RELATIONSHIP_STRENGTH_LABELS } from '../../types/person';
+import { readFileAsText } from '../../lib/download';
+import { parseVCard } from '../../lib/vcard';
 import type { Person, PersonInput, RelationshipStrength } from '../../types/person';
 import styles from './PersonForm.module.css';
 
@@ -21,6 +23,8 @@ export function PersonForm({ initial, tagSuggestions = [], submitLabel, onSubmit
   const [name, setName] = useState(initial?.name ?? '');
   const [company, setCompany] = useState(initial?.company ?? '');
   const [role, setRole] = useState(initial?.role ?? '');
+  const [phone, setPhone] = useState(initial?.phone ?? '');
+  const [email, setEmail] = useState(initial?.email ?? '');
   const [whereMet, setWhereMet] = useState(initial?.whereMet ?? '');
   const [notes, setNotes] = useState(initial?.notes ?? '');
   const [tags, setTags] = useState<string[]>(initial?.tags ?? []);
@@ -34,6 +38,28 @@ export function PersonForm({ initial, tagSuggestions = [], submitLabel, onSubmit
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const cardInput = useRef<HTMLInputElement>(null);
+  const [importNote, setImportNote] = useState<string | null>(null);
+
+  async function importCard(file: File) {
+    setImportNote(null);
+    try {
+      const card = parseVCard(await readFileAsText(file));
+      if (!card.name && !card.phone && !card.email) {
+        setImportNote("Couldn't find any details in that card.");
+        return;
+      }
+      if (card.name) setName(card.name);
+      if (card.company) setCompany(card.company);
+      if (card.role) setRole(card.role);
+      if (card.phone) setPhone(card.phone);
+      if (card.email) setEmail(card.email);
+      setImportNote(`Imported ${card.name ?? 'contact'} — review the details and save.`);
+    } catch {
+      setImportNote("Couldn't read that file. Make sure it's a contact card (.vcf).");
+    }
+  }
 
   const effectiveFrequency = customMode ? Number(customDays) : frequency;
   const valid = name.trim().length > 0 && effectiveFrequency >= 1 && Number.isFinite(effectiveFrequency);
@@ -57,6 +83,8 @@ export function PersonForm({ initial, tagSuggestions = [], submitLabel, onSubmit
         name,
         company,
         role,
+        phone,
+        email,
         whereMet,
         notes,
         tags,
@@ -71,6 +99,26 @@ export function PersonForm({ initial, tagSuggestions = [], submitLabel, onSubmit
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
+      {!initial && (
+        <div className={styles.importRow}>
+          <Button type="button" variant="secondary" fullWidth onClick={() => cardInput.current?.click()}>
+            📇 Import from contact card
+          </Button>
+          <input
+            ref={cardInput}
+            type="file"
+            accept=".vcf,text/vcard,text/x-vcard"
+            hidden
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) void importCard(file);
+              e.target.value = '';
+            }}
+          />
+          {importNote && <p className={styles.importNote}>{importNote}</p>}
+        </div>
+      )}
+
       <Field label="Name">
         <TextInput
           value={name}
@@ -88,6 +136,28 @@ export function PersonForm({ initial, tagSuggestions = [], submitLabel, onSubmit
         </Field>
         <Field label="Role">
           <TextInput value={role} onChange={(e) => setRole(e.target.value)} placeholder="Founder" />
+        </Field>
+      </div>
+
+      <div className={styles.row}>
+        <Field label="Phone">
+          <TextInput
+            type="tel"
+            inputMode="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="+1 555 123 4567"
+          />
+        </Field>
+        <Field label="Email">
+          <TextInput
+            type="email"
+            inputMode="email"
+            autoCapitalize="none"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="jane@acme.com"
+          />
         </Field>
       </div>
 

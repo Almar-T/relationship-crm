@@ -8,6 +8,9 @@ export interface Person {
   name: string;
   company?: string;
   role?: string;
+  /** How to reach them — used for the Message / Email quick actions. */
+  phone?: string;
+  email?: string;
   whereMet?: string;
   notes?: string;
   tags: string[];
@@ -30,6 +33,8 @@ export interface PersonInput {
   name: string;
   company?: string;
   role?: string;
+  phone?: string;
+  email?: string;
   whereMet?: string;
   notes?: string;
   tags: string[];

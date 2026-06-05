@@ -5,7 +5,15 @@ import { useMetrics } from '../hooks/useMetrics';
 import { usePush } from '../hooks/usePush';
 import { backupService } from '../services/backupService';
 import { downloadBlob, readFileAsText } from '../lib/download';
+import { emailBackup } from '../lib/share';
 import { isStoragePersisted } from '../lib/storage';
+import { Field, TextInput } from '../components/ui/Field';
+import {
+  getBackupEmail,
+  setBackupEmail,
+  markBackedUp,
+  daysSinceBackup,
+} from '../lib/prefs';
 import { todayISO } from '../lib/date';
 import styles from './SettingsPage.module.css';
 
@@ -15,20 +23,65 @@ export function SettingsPage() {
   const fileInput = useRef<HTMLInputElement>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [persisted, setPersisted] = useState<boolean | null>(null);
+  const [backupEmail, setBackupEmailValue] = useState(getBackupEmail());
+  const [lastBackupDays, setLastBackupDays] = useState<number | null>(daysSinceBackup());
+  const [emailing, setEmailing] = useState(false);
 
   useEffect(() => {
     void isStoragePersisted().then(setPersisted);
   }, []);
 
+  function recordBackup() {
+    markBackedUp();
+    setLastBackupDays(0);
+  }
+
+  function updateBackupEmail(value: string) {
+    setBackupEmailValue(value);
+    setBackupEmail(value);
+  }
+
   async function exportJson() {
     const blob = await backupService.exportToBlob();
     downloadBlob(blob, `reconnect-backup-${todayISO()}.json`);
+    recordBackup();
   }
 
   async function exportCsv() {
     const blob = await backupService.exportCsv();
     downloadBlob(blob, `reconnect-contacts-${todayISO()}.csv`);
   }
+
+  async function emailMyBackup() {
+    const to = backupEmail.trim();
+    if (!to) {
+      setMessage('Enter a backup email address first.');
+      return;
+    }
+    setEmailing(true);
+    setMessage(null);
+    try {
+      const result = await emailBackup(to);
+      recordBackup();
+      setMessage(
+        result === 'shared'
+          ? 'Backup ready — choose Mail in the share sheet and send it to yourself.'
+          : `Backup downloaded — attach it to the email opening for ${to}, then send.`,
+      );
+    } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') return; // user cancelled the share sheet
+      setMessage('Could not start the email. Try the manual export instead.');
+    } finally {
+      setEmailing(false);
+    }
+  }
+
+  const lastBackupLabel =
+    lastBackupDays === null
+      ? 'No backup yet'
+      : lastBackupDays === 0
+        ? 'Last backup: today'
+        : `Last backup: ${lastBackupDays} day${lastBackupDays === 1 ? '' : 's'} ago`;
 
   async function importJson(file: File) {
     if (!window.confirm('Importing replaces ALL current contacts on this device. Continue?')) return;
@@ -101,6 +154,34 @@ export function SettingsPage() {
               : 'Saved on this device · add to Home Screen to fully protect it'}
           </div>
         )}
+        <div className={`${styles.statusRow} ${styles.statusNeutral}`}>
+          <span aria-hidden>🗓️</span>
+          {lastBackupLabel}
+        </div>
+
+        <div className={styles.backupEmail}>
+          <Field
+            label="Email backups to"
+            hint="Saved on this device. Used to address the backup email — nothing is sent automatically."
+          >
+            <TextInput
+              type="email"
+              inputMode="email"
+              autoCapitalize="none"
+              placeholder="you@example.com"
+              value={backupEmail}
+              onChange={(e) => updateBackupEmail(e.target.value)}
+            />
+          </Field>
+          <Button
+            fullWidth
+            onClick={emailMyBackup}
+            disabled={emailing || backupEmail.trim().length === 0}
+          >
+            {emailing ? 'Preparing…' : '✉️ Email my backup'}
+          </Button>
+        </div>
+
         <div className={styles.stack}>
           <Button variant="secondary" fullWidth onClick={exportJson}>
             Export backup (JSON)

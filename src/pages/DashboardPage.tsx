@@ -5,6 +5,7 @@ import { PersonCard } from '../components/people/PersonCard';
 import { EmptyState } from '../components/ui/EmptyState';
 import { Spinner } from '../components/ui/Spinner';
 import { Button } from '../components/ui/Button';
+import { BackupReminder } from '../components/BackupReminder';
 import { useDashboard } from '../hooks/useDashboard';
 import { formatHumanDate } from '../lib/date';
 import styles from './DashboardPage.module.css';
@@ -18,6 +19,8 @@ export function DashboardPage() {
   return (
     <>
       <Header title="Today" subtitle={today} large />
+
+      <BackupReminder />
 
       {loading && !data ? (
         <Spinner label="Loading your network…" />

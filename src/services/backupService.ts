@@ -43,14 +43,14 @@ export const backupService = {
   async exportCsv(): Promise<Blob> {
     const people = await personRepository.getAll();
     const headers = [
-      'name', 'company', 'role', 'whereMet', 'tags', 'relationshipStrength',
+      'name', 'company', 'role', 'phone', 'email', 'whereMet', 'tags', 'relationshipStrength',
       'contactFrequencyDays', 'createdDate', 'lastContactDate', 'nextContactDate', 'notes',
     ];
     const rows = people.map((p) =>
       [
-        p.name, p.company ?? '', p.role ?? '', p.whereMet ?? '', p.tags.join('; '),
-        String(p.relationshipStrength), String(p.contactFrequencyDays), p.createdDate,
-        p.lastContactDate ?? '', p.nextContactDate, p.notes ?? '',
+        p.name, p.company ?? '', p.role ?? '', p.phone ?? '', p.email ?? '', p.whereMet ?? '',
+        p.tags.join('; '), String(p.relationshipStrength), String(p.contactFrequencyDays),
+        p.createdDate, p.lastContactDate ?? '', p.nextContactDate, p.notes ?? '',
       ]
         .map(csvCell)
         .join(','),

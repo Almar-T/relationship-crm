@@ -110,6 +110,20 @@
   border-radius: var(--radius-md);
 }
 
+.statusNeutral {
+  background: var(--card-2);
+  color: var(--text-secondary);
+}
+
+.backupEmail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 0.5px solid var(--separator);
+}
+
 .statusOk {
   background: rgba(52, 199, 89, 0.14);
   color: var(--green);
