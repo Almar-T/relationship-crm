@@ -6,6 +6,7 @@ import { EmptyState } from '../components/ui/EmptyState';
 import { Spinner } from '../components/ui/Spinner';
 import { Button } from '../components/ui/Button';
 import { BackupReminder } from '../components/BackupReminder';
+import { NotificationPrompt } from '../components/NotificationPrompt';
 import { useDashboard } from '../hooks/useDashboard';
 import { formatHumanDate } from '../lib/date';
 import styles from './DashboardPage.module.css';
@@ -20,6 +21,7 @@ export function DashboardPage() {
     <>
       <Header title="Today" subtitle={today} large />
 
+      <NotificationPrompt />
       <BackupReminder />
 
       {loading && !data ? (

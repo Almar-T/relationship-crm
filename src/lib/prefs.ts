@@ -8,6 +8,7 @@ import { nowTimestamp } from './date';
 
 const BACKUP_EMAIL_KEY = 'reconnect.backupEmail';
 const LAST_BACKUP_KEY = 'reconnect.lastBackupAt';
+const NOTIF_PROMPT_DISMISSED_KEY = 'reconnect.notifPromptDismissed';
 
 /** Remind the user to back up once this many days have passed. */
 export const BACKUP_REMINDER_DAYS = 14;
@@ -40,6 +41,23 @@ export function getLastBackupAt(): string | null {
 export function markBackedUp(): void {
   try {
     localStorage.setItem(LAST_BACKUP_KEY, nowTimestamp());
+  } catch {
+    /* storage unavailable — non-fatal */
+  }
+}
+
+/** Whether the user dismissed the "turn on notifications" nudge. */
+export function isNotifPromptDismissed(): boolean {
+  try {
+    return localStorage.getItem(NOTIF_PROMPT_DISMISSED_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+export function dismissNotifPrompt(): void {
+  try {
+    localStorage.setItem(NOTIF_PROMPT_DISMISSED_KEY, '1');
   } catch {
     /* storage unavailable — non-fatal */
   }
