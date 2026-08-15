@@ -2,6 +2,8 @@
 
 A privacy-first Progressive Web App that **tells you who to reconnect with**.
 
+**[Live app →](https://almar-t.github.io/relationship-crm/)** · A personal project, built for my own use.
+
 You save someone, choose how often you want to stay in touch, and the app does
 the rest: every day it surfaces the people who are due, and one tap —
 **"Contacted today"** — automatically reschedules the next reach-out. One push
@@ -282,3 +284,11 @@ The architecture is built to extend without rewrites:
 
 Built with React + TypeScript + Vite + IndexedDB. No Firebase, no paid APIs, no
 backend database, no auth. Deployable entirely on free tiers.
+
+---
+
+## License
+
+Copyright © 2026 Almar Tishenko. All rights reserved. This is a personal
+project; the source is public for viewing and evaluation only and is not
+licensed for reuse. See [LICENSE](./LICENSE).
